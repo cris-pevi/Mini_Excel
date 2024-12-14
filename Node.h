@@ -13,12 +13,28 @@ class Node {
 
 template<typename T>
 class NumberNode : public Node<T> {
-        T value;
+    T value;
+    
     public:
         NumberNode(T v) : value(v) {}
         T evaluate(const std::map<std::string, std::unique_ptr<Node<T>>> &) const override {
             return value;
         }
+};
+
+template<typename T>
+class CellNode : public Node<T> {
+    std::string cellName;
+    
+    public:
+    CellNode(const std::string &c) : cellName(c) {}
+    T evaluate(const std::map<std::string, std::unique_ptr<Node<T>>> &cellExpressions) const override {
+        auto it = cellExpressions.find(cellName);
+        if (it == cellExpressions.end() || !it->second) {
+            return T(); // Celda vacía
+        }
+        return it->second->evaluate(cellExpressions);
+    }
 };
 
 #endif
