@@ -3,6 +3,7 @@
 
 #include <map>
 #include <memory>
+#include <functional>
 
 template<typename T>
 class Node {
@@ -34,6 +35,23 @@ class CellNode : public Node<T> {
             return T(); // Celda vacía
         }
         return it->second->evaluate(cellExpressions);
+    }
+};
+
+template<typename T>
+class OpNode : public Node<T> {
+    std::unique_ptr<Node<T>> left;  // Operando izquierdo
+    std::unique_ptr<Node<T>> right; // Operando derecho
+    std::function<T(T, T)> opFunc;  // Función de la operación (e.g., +, -, *, /)
+
+public:
+    OpNode(std::unique_ptr<Node<T>> l, std::unique_ptr<Node<T>> r, std::function<T(T, T)> f)
+    : left(std::move(l)), right(std::move(r)), opFunc(f) {}
+
+    T evaluate(const std::map<std::string, std::unique_ptr<Node<T>>> &cellExpressions) const override {
+        T lv = left->evaluate(cellExpressions);
+        T rv = right->evaluate(cellExpressions);
+        return opFunc(lv, rv);
     }
 };
 
