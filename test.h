@@ -6,5 +6,6 @@
 #include "Mini_Excel.h"
 
 void runTests();
+void runMini();
 
 #endif
