@@ -40,3 +40,19 @@ void runTests() {
     std::cout << "Nuevo valor de A1: " << cellReferenciaA1.evaluate(cellExpressions) << std::endl;
     std::cout << "Nuevo resultado de C1 (re-evaluado como A1 + B1): " << cellExpressions["C1"]->evaluate(cellExpressions) << std::endl;
 }
+
+void runMini() {
+    MiniExcel<double> excel;
+
+    // Iniciar la ejecución interactiva
+    std::cout << "\n ############################       Mini-Excel       ############################ \n";
+    std::cout << "\nPuedes realizar las siguientes operaciones:\n";
+    std::cout << "\n- Asignar un número a una celda: A1 = 10\n";
+    std::cout << "- Operaciones entre celdas: C1 = A1 + B1\n";
+    std::cout << "\nSi deseas salir, escribe 'exit'.\n";
+    std::cout << "\n ---------------------------------------------------------------------------------- \n";
+
+    excel.run(); // Ejecutar el bucle interactivo
+
+    std::cout << "\nGracias. Feliz Navidad\n";
+}
