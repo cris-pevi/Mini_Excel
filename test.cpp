@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Node.h"
+#include "Mini_Excel.h"
 
 void runTests() {
     // Mapa vacío
